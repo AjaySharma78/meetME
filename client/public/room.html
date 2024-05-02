@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>meetMe Room</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="./favicon.png" sizes="any" />
+    <script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5ee22cfab6.js" crossorigin="anonymous"></script>
+    <script>
+        const params = new URLSearchParams(location.search);
+        if (!params.get("room")) location.href = "/";
+    </script>
+</head>
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="box">
+            <div class="head-name">Enter a Name</div>
+            <input type="text" class="name-field" placeholder="Type here.." id="name-field" required></input><br>
+            <button class="continue-name">Continue</button>
+        </div>
+    </div>
+    <div class="container-room">
+        <div class="left-cont">
+
+            <div class="video-cont-single" id="vcont">
+                <div class="video-box">
+                    <video class="video-frame" id="vd1" autoplay playsinline>
+                    </video>
+                    <div class="nametag" id="myname">yourname</div>
+                    <div class="mute-icon" id="mymuteicon"><i class="fas fa-microphone-slash"></i></div>
+                    <div class="video-off" id="myvideooff"><i class="fa-solid fa-user" style="color: gray; font-size: 150px;"></i></div>
+                </div>
+            </div>
+
+            <div class="whiteboard-cont"><canvas id="whiteboard"></canvas>
+                <div class="colors-cont">
+                    <input  id="cursorColor" type="color">
+                    <i id="cursorEraser" style="cursor: pointer;" class="fas fa-eraser"></i>
+                    <input id="cursorEraserSize" type="range" min="1" max="50" value="5"><output id="output">5</output>
+                    <div class="clearboard" onclick="clearBoard()"><i class="fas fa-trash-alt"></i></div>
+
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="utils">
+
+                    <div class="audio tooltip">
+                        <i class="fas fa-microphone"></i>
+                        <span class="tooltiptext">audio</span>
+                    </div>
+                    <div class="novideo tooltip">
+                        <i class="fas fa-video"></i>
+                        <span class="tooltiptext">video</span>
+                    </div>
+                    <div class="screenshare tooltip">
+                        <i class="fas fa-desktop"></i>
+                        <span class="tooltiptext">Share Screen</span>
+                    </div>
+                    <div class="board-icon tooltip">
+                        <i class="fas fa-chalkboard"></i>
+                        <span class="tooltiptext">Whiteboard</span>
+                    </div>
+                    <div class="cutcall tooltip">
+                        <i class="fas fa-phone-slash"></i>
+                        <span class="tooltiptext">Leave Call</span>
+                    </div>
+                    <div class="chatsss" onclick="chatmenu()">
+                        <i class="fa-regular fa-message"></i>
+                    </div>
+                </div>
+             
+                <div class="copycode-cont">
+                    <div class="roomcode"></div>
+                    <div class="copycode-button" onclick="CopyClassText()"  >Copy Code</div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="right-cont" id="right-cont">
+            <div class="head-title">
+
+                <div class="chats" id="chats" ><i class="fas fa-comment-alt mr-1"></i>Chats</div>
+                <div class="attendies" id="attendies" ><i class="fas fa-users mr-1"></i><span style="padding-left: 5px; color: rgb(57, 156, 243);" id="user-count">0</span></div>
+                <i id="cross" style=" width: 20%;line-height: 2;" onclick="chatmenu()" class="fa-solid fa-xmark"></i>
+            </div>
+
+            <div class="chat-cont">
+                <div class="chart"></div>
+            </div>
+
+            <div class="chat-input-cont">
+                <div class="ci-cont"><input type="text" class="chat-input" placeholder="Type chat here.."></div>
+                <div class="ci-send"><button class="chat-send"><i class="fa-regular fa-paper-plane"></i></button></div>
+            </div>
+   
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/room.js"></script>
+    
+</body>
+
+</html>
